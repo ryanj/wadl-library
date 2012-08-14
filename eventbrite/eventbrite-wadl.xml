@@ -545,6 +545,57 @@
             </method>
         </resource>
 
+        <resource path="user_list_events">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="user_list_events" id="user_list_events" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Events</apigee:tag>
+                    <apigee:tag>Users</apigee:tag>
+                </apigee:tags>
+
+                <!-- app_key only -->
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="user_list_events"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events" title="user_list_events">
+                    This method lists the events created by this user. Only public events are returned if no authentication is passed.
+                </doc>
+
+                <request>
+                    <param name="email" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events">
+                            The user email. Defaults to the authenticated user if not provided. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="do_not_display" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events">
+                            Comma separated list without spaces. Valid options include: description, venue, logo, style, organizer, tickets. Example: "do_not_display=venue,logo,style". If you leave this field blank, it will return everything. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="event_statuses" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events">
+                             Comma separated list without spaces. Valid options include: live, started, ended. Example: "event_statuses=live,started". If you leave this field blank, it will return everything. Also note that the “ended” option will only return events that have ended in the last 7 days. Optional.
+                        </doc>
+                    </param>
+
+                    <param default="asc" name="asc_or_desc" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events">
+                             Valid options include ‘asc’ or results in ascending order or ‘desc’ or descending order based on event start_date. Defaults to asc. Optional.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
         <!-- Tickets -->
 
         <resource path="ticket_new">
@@ -970,6 +1021,30 @@
             </method>
         </resource>
 
+        <resource path="user_list_venues">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="user_list_venues" id="user_list_venues" name="GET">
+                <apigee:tags>
+                    <apigee:tag>Users</apigee:tag>
+                    <apigee:tag primary="true">Venues</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="user_list_venues"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_venues" title="user_list_venues">
+                    This method lists the venues created by this user. Requires authentication.
+                </doc>
+            </method>
+        </resource>
+
         <!-- Organizer Profiles -->
 
         <resource path="organizer_list_events">
@@ -1115,9 +1190,7 @@
             </method>
         </resource>
 
-        <!-- Users -->
-
-        <resource path="user_list_events">
+        <resource path="user_list_organizers">
             <param name="data-type" type="xsd:string" style="template" required="true" default="json">
                 <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
                     xml or json data-types are supported
@@ -1125,48 +1198,23 @@
                 <option value="xml" mediaType="application/xml"/>
                 <option value="json" mediaType="application/json"/>
             </param>
-            <method apigee:displayName="user_list_events" id="user_list_events" name="GET">
+            <method apigee:displayName="user_list_organizers" id="user_list_organizers" name="GET">
                 <apigee:tags>
-                    <apigee:tag primary="true">Users</apigee:tag>
-                    <apigee:tag>Events</apigee:tag>
+                    <apigee:tag primary="true">Organizer Profiles</apigee:tag>
+                    <apigee:tag>Users</apigee:tag>
                 </apigee:tags>
 
-                <!-- app_key only -->
                 <apigee:authentication required="true"/>
 
-                <apigee:example url="user_list_events"/>
+                <apigee:example url="user_list_organizers"/>
 
-                <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events" title="user_list_events">
-                    This method lists the events created by this user. Only public events are returned if no authentication is passed.
+                <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_organizers" title="user_list_organizers">
+                    This method lists the organizers created by this user. Requires authentication.
                 </doc>
-
-                <request>
-                    <param name="email" required="false" style="query" type="xsd:string">
-                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events">
-                            The user email. Defaults to the authenticated user if not provided. Optional.
-                        </doc>
-                    </param>
-
-                    <param name="do_not_display" required="false" style="query" type="xsd:string">
-                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events">
-                            Comma separated list without spaces. Valid options include: description, venue, logo, style, organizer, tickets. Example: "do_not_display=venue,logo,style". If you leave this field blank, it will return everything. Optional.
-                        </doc>
-                    </param>
-
-                    <param name="event_statuses" required="false" style="query" type="xsd:string">
-                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events">
-                             Comma separated list without spaces. Valid options include: live, started, ended. Example: "event_statuses=live,started". If you leave this field blank, it will return everything. Also note that the “ended” option will only return events that have ended in the last 7 days. Optional.
-                        </doc>
-                    </param>
-
-                    <param default="asc" name="asc_or_desc" required="false" style="query" type="xsd:string">
-                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events">
-                             Valid options include ‘asc’ or results in ascending order or ‘desc’ or descending order based on event start_date. Defaults to asc. Optional.
-                        </doc>
-                    </param>
-                </request>
             </method>
         </resource>
+
+        <!-- Users -->
 
         <resource path="user_list_tickets">
             <param name="data-type" type="xsd:string" style="template" required="true" default="json">
@@ -1189,54 +1237,6 @@
 
                 <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_tickets" title="user_list_tickets">
                     This method lists the tickets purchased by the authenticated user. Each transaction is an order in our system and an order may contain one or more tickets. Tickets to free events are included.
-                </doc>
-            </method>
-        </resource>
-
-        <resource path="user_list_venues">
-            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
-                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
-                    xml or json data-types are supported
-                </doc>
-                <option value="xml" mediaType="application/xml"/>
-                <option value="json" mediaType="application/json"/>
-            </param>
-            <method apigee:displayName="user_list_venues" id="user_list_venues" name="GET">
-                <apigee:tags>
-                    <apigee:tag primary="true">Users</apigee:tag>
-                    <apigee:tag>Venues</apigee:tag>
-                </apigee:tags>
-
-                <apigee:authentication required="true"/>
-
-                <apigee:example url="user_list_venues"/>
-
-                <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_venues" title="user_list_venues">
-                    This method lists the venues created by this user. Requires authentication.
-                </doc>
-            </method>
-        </resource>
-
-        <resource path="user_list_organizers">
-            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
-                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
-                    xml or json data-types are supported
-                </doc>
-                <option value="xml" mediaType="application/xml"/>
-                <option value="json" mediaType="application/json"/>
-            </param>
-            <method apigee:displayName="user_list_organizers" id="user_list_organizers" name="GET">
-                <apigee:tags>
-                    <apigee:tag primary="true">Users</apigee:tag>
-                    <apigee:tag>Organizers</apigee:tag>
-                </apigee:tags>
-
-                <apigee:authentication required="true"/>
-
-                <apigee:example url="user_list_organizers"/>
-
-                <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_organizers" title="user_list_organizers">
-                    This method lists the organizers created by this user. Requires authentication.
                 </doc>
             </method>
         </resource>
@@ -1545,8 +1545,9 @@
             </param>
             <method apigee:displayName="payment_update" id="payment_update" name="GET">
                 <apigee:tags>
-                    <apigee:tag primary="true">Payment</apigee:tag>
+                    <apigee:tag primary="true">Payment Settings</apigee:tag>
                     <apigee:tag>Events</apigee:tag>
+                    <apigee:tag>Users</apigee:tag>
                 </apigee:tags>
 
                 <apigee:authentication required="true"/>
@@ -1554,7 +1555,7 @@
                 <apigee:example url="payment_update"/>
 
                 <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update" title="payment_update">
-                    This method creates or updates the payment options for this event. Only the fields passed as arguments will be modified. It returns the list of active methods of payment.
+                    This method creates or updates the payment options for this event. Only the fields passed as arguments will be modified. 
                 </doc>
 
                 <request>
