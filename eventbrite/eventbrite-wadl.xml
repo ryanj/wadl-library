@@ -1,0 +1,1637 @@
+<?xml version="1.0" encoding="UTF-8"?><application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:apigee="http://api.apigee.com/wadl/2010/07/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://wadl.dev.java.net/2009/02 http://apigee.com/schemas/wadl-schema.xsd http://api.apigee.com/wadl/2010/07/ http://apigee.com/schemas/apigee-wadl-extensions.xsd">
+
+    <resources base="https://www.eventbrite.com/{data-type}/">
+
+        <!-- Events -->
+
+        <resource path="event_search">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="event_search" id="event_search" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Events</apigee:tag>
+                </apigee:tags>
+
+                <!-- app_key only -->
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="event_search"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search" title="event_search">
+                    This method uses our search index to find publicly listed events.
+                </doc>
+
+                <request>
+                    <param name="keywords" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            The search keywords. To run an OR search, you need this format: “keywords=google%20OR%20multimedia”. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="category" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            Event categories (comma seperated): conference, conventions, entertainment, fundraisers, meetings, other, performances, reunions, sales, seminars, social, sports, tradeshows, travel, religion, fairs, food, music, recreation. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="address" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            The venue address. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="city" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            The venue city. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="region" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            The venue state/province/county/territory depending on the country. 2-letter state code is required for US addresses. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="postal_code" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            The postal/zip code of the venue. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="country" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            2-letter country code, according to the ISO 3166 format. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="within" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            If “within” is set and the “city” or “zipcode” resolve to a specific geolocation, the search will be restricted to the specified within radius. The sorting default will be set to “distance”. Optional.
+                        </doc>
+                    </param>
+
+                    <param default="M" name="within_unit" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            If within is set, you can specify the unit to use: “M” for miles, or “K” for kilometers. By default, the API will use miles. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="latitude" required="false" style="query" type="xsd:float">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            If “within” is set you can limit your search to wgs84 coordinates (latitude, longitude). Optional.
+                        </doc>
+                    </param>
+
+                    <param name="longitude" required="false" style="query" type="xsd:float">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            If “within” is set you can limit your search to wgs84 coordinates (latitude, longitude). Optional.
+                        </doc>
+                    </param>
+
+                    <param name="date" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            The event start date. Limit the list of results to a date range, specified by a label or by exact dates. Currently supported labels include: “All”, “Future”, “Past”, “Today”, “Yesterday”, “Last Week”, “This Week”, “Next week”, “This Month”, “Next Month” and months by name, e.g. “October”. Exact date ranges take the form “YYYY-MM-DD YYYY-MM-DD”, e.g. “2008-04-25 2008-04-27″. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="date_created" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            The date range the event was created, specified by a label or by exact dates. Currently supported labels include: “All”, “Future”, “Past”, “Today”, “Yesterday”, “Last Week”, “This Week”, “Next week”, “This Month”, “Next Month” and months by name, e.g. “October”. Exact date ranges take the form “YYYY-MM-DD YYYY-MM-DD”, e.g. “2008-04-25 2008-04-27″. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="date_modified" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            The date range the event was modified, specified by a label or by exact dates. Currently supported labels include: “All”, “Future”, “Past”, “Today”, “Yesterday”, “Last Week”, “This Week”, “Next week”, “This Month”, “Next Month” and months by name, e.g. “October”. Exact date ranges take the form “YYYY-MM-DD YYYY-MM-DD”, e.g. “2008-04-25 2008-04-27″. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="organizer" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            The organizer name. Optional.
+                        </doc>
+                    </param>
+
+                    <param default="10" name="max" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            Limit the number of events returned. Maximum limit is 100 events per page. Default is 10. Optional.
+                        </doc>
+                    </param>
+
+                    <param default="false" name="count_only" required="false" style="query" type="xsd:boolean">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            Only return the total number of events (“true” or “false”). Default is “false”. Optional.
+                        </doc>
+                    </param>
+
+                    <param default="date" name="sort_by" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            Sort the list of events by “id”, “date”, “name”, “city”. The default is “date”. Optional.
+                        </doc>
+                    </param>
+
+                    <param default="1" name="page" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            Allows for paging through the results of a query. Default is 1. Optional.
+                        </doc>
+                    </param>
+
+                    <param default="1" name="since_id" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            Returns events with id greater than “since_id” value. Default is 1. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="tracking_link" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_search">
+                            The tracking link code to add to the event URLs. Optional.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="event_get">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="event_get" id="event_get" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Events</apigee:tag>
+                </apigee:tags>
+
+                <!-- app_key only -->
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="event_get"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/events/event_get" title="event_get">
+                    This method returns the data for a given event. Only public events are viewable if no authentication is passed.
+                </doc>
+
+                <request>
+                    <param name="event_id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_get">
+                            The ID of the requested event.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="event_new">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="event_new" id="event_new" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Events</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="event_new"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new" title="event_new">
+                    This method creates a new event. It returns the ID of the newly created event.
+                </doc>
+
+                <request>
+                    <param name="title" required="true" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            The event title. 255 characters max.
+                        </doc>
+                    </param>
+
+                    <param name="description" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            The event description. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="start_date" required="true" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            The event start date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″).
+                        </doc>
+                    </param>
+
+                    <param name="end_date" required="true" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            The event end date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″).
+                        </doc>
+                    </param>
+
+                    <param name="timezone" required="true" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            The event time zone in relation to GMT (e.g., “GMT+01″, “GMT+02″, “GMT-01″).
+                        </doc>
+                    </param>
+
+                    <param name="privacy" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            0 for a private event, 1 for a public event. If not provided, will default to 0. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="personalized_url" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            The event registration URL. If you pass “testevent”, the event will be accessible at “http://testevent.eventbrite.com”.  This string is limited to 255 characters max. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="venue_id" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            The event venue ID. The venue must have been previously created using /venue_new. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="organizer_id" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            The event organizer ID. The organizer must have been previously created using /organizer_new. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="capacity" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            The maximum number of people who can attend the event. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="currency" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            The event currency in ISO 4217 format (e.g., “USD”, “EUR”). Optional.
+                        </doc>
+                    </param>
+
+                    <param name="status" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            The event status. Allowed values are “draft”, “live” for new events. If not provided, status will be “draft”, meaning that the event registration page will not be available publicly. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="custom_header" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            Custom HTML header for your registration page. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="custom_footer" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            Custom HTML footer for your registration page. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="background_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="text_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="title_text_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="box_background_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="box_text_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="box_border_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="box_header_background_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="box_header_text_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_new">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="event_update">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="event_update" id="event_update" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Events</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="event_update"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update" title="event_update">
+                    This method updates an existing event. Only the fields passed as arguments will be modified. This method returns the ID of the modified event.
+                </doc>
+
+                <request>
+                    <param name="event_id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            The ID of the event to update.
+                        </doc>
+                    </param>
+
+                    <param name="title" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            The event title. 255 characters max.
+                        </doc>
+                    </param>
+
+                    <param name="description" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            The event description.
+                        </doc>
+                    </param>
+
+                    <param name="start_date" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            The event start date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″).
+                        </doc>
+                    </param>
+
+                    <param name="end_date" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            The event end date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″).
+                        </doc>
+                    </param>
+
+                    <param name="timezone" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            The event time zone in relation to GMT (e.g., “GMT+01″, “GMT+02″, “GMT-01″) or US Time Zone (“PT”  or “US/Pacific”, “MT”   or “US/Mountain”, “CT”   or “US/Central” or “ET”  or “US/Eastern”).
+                        </doc>
+                    </param>
+
+                    <param name="privacy" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            0 for a private event, 1 for a public event.
+                        </doc>
+                    </param>
+
+                    <param name="personalized_url" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            The event registration URL subdomain.  Your event will be available at http://&lt;personalized_url&gt;.eventbrite.com.  This string is limited to 255 characters max.
+                        </doc>
+                    </param>
+
+                    <param name="venue_id" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            The event venue ID. The venue must have been previously created using /venue_new.
+                        </doc>
+                    </param>
+
+                    <param name="organizer_id" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            The event organizer ID. The organizer must have been previously created using /organizer_new.
+                        </doc>
+                    </param>
+
+                    <param name="capacity" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            The maximum number of people who can attend the event.
+                        </doc>
+                    </param>
+
+                    <param name="currency" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            The event currency in ISO 4217 format (e.g., “USD”, “EUR”).
+                        </doc>
+                    </param>
+
+                    <param name="status" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            The event status. Allowed values are “draft”, “live” for new events.
+                        </doc>
+                    </param>
+
+                    <param name="custom_header" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            Custom HTML header for your registration page.
+                        </doc>
+                    </param>
+
+                    <param name="custom_footer" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            Custom HTML footer for your registration page.
+                        </doc>
+                    </param>
+
+                    <param name="background_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound.
+                        </doc>
+                    </param>
+
+                    <param name="text_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound.
+                        </doc>
+                    </param>
+
+                    <param name="title_text_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound.
+                        </doc>
+                    </param>
+
+                    <param name="box_background_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound.
+                        </doc>
+                    </param>
+
+                    <param name="box_text_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound.
+                        </doc>
+                    </param>
+
+                    <param name="box_border_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound.
+                        </doc>
+                    </param>
+
+                    <param name="box_header_background_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound.
+                        </doc>
+                    </param>
+
+                    <param name="box_header_text_color" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_update">
+                            Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="event_copy">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="event_copy" id="event_copy" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Events</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="event_copy"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/events/event_copy" title="event_copy">
+                    This method duplicates an existing event, returning the ID of the new event.
+                </doc>
+
+                <request>
+                    <param name="event_id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_copy">
+                            The ID of the existing event.
+                        </doc>
+                    </param>
+
+                    <param name="event_name" required="true" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_copy">
+                            A new name for this copy of the Event.  255 character limit.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <!-- Tickets -->
+
+        <resource path="ticket_new">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="ticket_new" id="ticket_new" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Tickets</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="ticket_new"/>
+
+                <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_new" title="ticket_new">
+                    This method creates new fixed-price or donation ticket types. It returns the ID of the newly created ticket.
+                </doc>
+
+                <request>
+                    <param name="event_id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_new">
+                            The event ID. The event must have been previously created using /event_new.
+                        </doc>
+                    </param>
+
+                    <param name="is_donation" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_new">
+                            0 for fixed-price tickets, 1 for donations. 0 will be used by default if not provided. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="name" required="true" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_new">
+                            The ticket name.
+                        </doc>
+                    </param>
+
+                    <param name="description" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_new">
+                            The ticket description. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="price" required="true" style="query" type="xsd:float">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_new">
+                            The ticket price. Enter 0.00 for free tickets. Leave blank for a donation.
+                        </doc>
+                    </param>
+
+                    <param name="quantity" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_new">
+                            The number of tickets available. Not required for donations.
+                        </doc>
+                    </param>
+
+                    <param name="start_sales" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_new">
+                            The date and time when ticket sales start, in ISO 8601 format (e.g., “2007-12-31 23:59:59″). Optional.
+                        </doc>
+                    </param>
+
+                    <param name="end_sales" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_new">
+                            The date and time when ticket sales stop, in ISO 8601 format (e.g., “2007-12-31 23:59:59″). Optional.
+                        </doc>
+                    </param>
+
+                    <param name="include_fee" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_new">
+                            0 to add the Eventbrite service fee on top of ticket price, or 1 to include it in the ticket price. 0 will be used by default if not provided. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="min" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_new">
+                            The minimum number of tickets per order. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="max" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_new">
+                            The maximum number of tickets per order. Optional.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="ticket_update">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="ticket_update" id="ticket_update" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Tickets</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="ticket_update"/>
+
+                <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_update" title="ticket_update">
+                    This method updates an existing ticket type. Only the fields passed as arguments will be modified. It returns the ID of the updated ticket.
+                </doc>
+
+                <request>
+                    <param name="id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_update">
+                            The ticket ID.
+                        </doc>
+                    </param>
+
+                    <param name="is_donation" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_update">
+                            0 for fixed-price tickets, 1 for donations.
+                        </doc>
+                    </param>
+
+                    <param name="name" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_update">
+                            The ticket name.
+                        </doc>
+                    </param>
+
+                    <param name="description" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_update">
+                            The ticket description.
+                        </doc>
+                    </param>
+
+                    <param name="price" required="false" style="query" type="xsd:float">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_update">
+                            The ticket price. Enter 0.00 for free tickets. Leave blank for a donation. If tickets are already sold, price will not change.
+                        </doc>
+                    </param>
+
+                    <param name="quantity" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_update">
+                            The number of tickets available. Not required for donations.
+                        </doc>
+                    </param>
+
+                    <param name="start_sales" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_update">
+                            The date and time when ticket sales start, in ISO 8601 format (e.g., “2007-12-31 23:59:59″). Optional.
+                        </doc>
+                    </param>
+
+                    <param name="end_sales" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_update">
+                            The date and time when ticket sales stop, in ISO 8601 format (e.g., “2007-12-31 23:59:59″). Optional.
+                        </doc>
+                    </param>
+
+                    <param name="include_fee" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_update">
+                            0 to add the Eventbrite service fee on top of ticket price, or 1 to include it in the ticket price.
+                        </doc>
+                    </param>
+
+                    <param name="min" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_update">
+                            The minimum number of tickets per order.
+                        </doc>
+                    </param>
+
+                    <param name="max" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_update">
+                            The maximum number of tickets per order.
+                        </doc>
+                    </param>
+
+                    <param name="hide" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.ticketbrite.com/doc/tickets/ticket_update">
+                            Show or hide the ticket type. Valid options: (y or n)
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="event_list_attendees">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="event_list_attendees" id="event_list_attendees" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Attendees</apigee:tag>
+                </apigee:tags>
+
+                <!-- app_key only -->
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="event_list_attendees"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/events/event_list_attendees" title="event_list_attendees">
+                    This method returns a list of attendees for a given event. If no authentication is passed, only publicly available attendee records will be returned.
+                </doc>
+
+                <request>
+                    <param name="event_id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_list_attendees">
+                            The ID of the event.
+                        </doc>
+                    </param>
+
+                    <param default="50" name="count" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_list_attendees">
+                            Limit the number of attendees returned. Default limit is 50 attendees per page if paginate selected.
+                        </doc>
+                    </param>
+
+                    <param default="1" name="page" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_list_attendees">
+                            Allows for paging through the results of a query. Default is 1. Page size will be setted with “count” parameter.
+                        </doc>
+                    </param>
+
+                    <param name="do_not_display" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_list_attendees">
+                            Comma separated list without spaces that leaves out certain data returned. Valid options are: profile,answers,address. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="show_full_barcodes" required="false" style="query" type="xsd:boolean">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_list_attendees">
+                            If set to ‘true’, it will return all barcodes associates with the attendee, plus the barcode status, device used, attendee_id, and barcode number. If left blank, it will return a comma separated list of barcodes. Optional.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <!-- Venues -->
+
+        <resource path="venue_get">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="venue_get" id="venue_get" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Venues</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="venue_get"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_get" title="venue_get">
+                    This method returns a single venue by id.
+                </doc>
+
+                <request>
+                    <param name="id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_get">
+                            The venue id.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="venue_new">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="venue_new" id="venue_new" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Venues</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="venue_new"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_new" title="venue_new">
+                    This method creates a new venue. It returns the ID of the newly created venue.
+                </doc>
+
+                <request>
+                    <param name="organizer_id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_new">
+                            The ID of the related organizer.
+                        </doc>
+                    </param>
+
+                    <param name="venue" required="true" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_new">
+                            The venue name.
+                        </doc>
+                    </param>
+
+                    <param name="adress" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_new">
+                            The venue address (line 1). Optional.
+                        </doc>
+                    </param>
+
+                    <param name="adress_2" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_new">
+                            The venue address (line 2). Optional.
+                        </doc>
+                    </param>
+
+                    <param name="city" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_new">
+                            The venue city. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="region" required="true" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_new">
+                            The venue state/province/county/territory depending on the country. 2-letter state code is required for US addresses.
+                        </doc>
+                    </param>
+
+                    <param name="postal_code" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_new">
+                            The postal code of the venue. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="country_code" required="true" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_new">
+                            2-letter country code, according to the ISO 3166 format.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="venue_update">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="venue_update" id="venue_update" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Venues</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="venue_update"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_update" title="venue_update">
+                    This method updates an existing venue. Only the fields passed as arguments will be modified. It returns the ID of the updated venue.
+                </doc>
+
+                <request>
+                    <param name="id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_update">
+                            The venue ID.
+                        </doc>
+                    </param>
+
+                    <param name="venue" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_update">
+                            The venue name.
+                        </doc>
+                    </param>
+
+                    <param name="adress" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_update">
+                            The venue address (line 1).
+                        </doc>
+                    </param>
+
+                    <param name="adress_2" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_update">
+                            The venue address (line 2).
+                        </doc>
+                    </param>
+
+                    <param name="city" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_update">
+                            The venue city.
+                        </doc>
+                    </param>
+
+                    <param name="region" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_update">
+                            The venue state/province/county/territory depending on the country. 2-letter state code is required for US addresses.
+                        </doc>
+                    </param>
+
+                    <param name="postal_code" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_update">
+                            The postal code of the venue.
+                        </doc>
+                    </param>
+
+                    <param name="country_code" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/venues/venue_update">
+                            2-letter country code, according to the ISO 3166 format.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <!-- Organizer Profiles -->
+
+        <resource path="organizer_list_events">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="organizer_list_events" id="organizer_list_events" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Organizer Profiles</apigee:tag>
+                    <apigee:tag>Events</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="organizer_list_events"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/organizers/organizer_list_events" title="organizer_list_events">
+                    This method returns a list of events for a given organizer.
+                </doc>
+
+                <request>
+                    <param name="id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/organizers/organizer_list_events">
+                            The organizer id.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="organizer_get">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="organizer_get" id="organizer_get" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Organizer Profiles</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="organizer_get"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/organizers/organizer_get" title="organizer_get">
+                    This method returns a single organizer by id.
+                </doc>
+
+                <request>
+                    <param name="id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/organizers/organizer_get">
+                            The organizer profile id.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="organizer_new">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="organizer_new" id="organizer_new" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Organizer Profiles</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="organizer_new"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/organizers/organizer_new" title="organizer_new">
+                    Many event creators prefer having a specific person identified as the point of contact for their event. This person is usually someone like the event emcee, or an on-site contact that can help with attendee check-ins or other issues during the event. This method creates a new organizer, and returns the organizer_id for the newly created resource.
+                </doc>
+
+                <request>
+                    <param name="name" required="true" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/organizers/organizer_new">
+                            The organizer name.
+                        </doc>
+                    </param>
+
+                    <param name="description" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/organizers/organizer_new">
+                            The organizer description. Optional.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="organizer_update">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="organizer_update" id="organizer_update" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Organizer Profiles</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="organizer_update"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/organizers/organizer_update" title="organizer_update">
+                    This method updates an existing organizer. Only the fields passed as arguments will be modified. It returns the ID of the updated organizer.
+                </doc>
+
+                <request>
+                    <param name="id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/organizers/organizer_update">
+                            The organizer ID.
+                        </doc>
+                    </param>
+
+                    <param name="name" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/organizers/organizer_update">
+                            The organizer name.
+                        </doc>
+                    </param>
+
+                    <param name="description" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/organizers/organizer_update">
+                            The organizer description.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <!-- Users -->
+
+        <resource path="user_list_events">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="user_list_events" id="user_list_events" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Users</apigee:tag>
+                    <apigee:tag>Events</apigee:tag>
+                </apigee:tags>
+
+                <!-- app_key only -->
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="user_list_events"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events" title="user_list_events">
+                    This method lists the events created by this user. Only public events are returned if no authentication is passed.
+                </doc>
+
+                <request>
+                    <param name="email" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events">
+                            The user email. Defaults to the authenticated user if not provided. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="do_not_display" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events">
+                            Comma separated list without spaces. Valid options include: description, venue, logo, style, organizer, tickets. Example: "do_not_display=venue,logo,style". If you leave this field blank, it will return everything. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="event_statuses" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events">
+                             Comma separated list without spaces. Valid options include: live, started, ended. Example: "event_statuses=live,started". If you leave this field blank, it will return everything. Also note that the “ended” option will only return events that have ended in the last 7 days. Optional.
+                        </doc>
+                    </param>
+
+                    <param default="asc" name="asc_or_desc" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_events">
+                             Valid options include ‘asc’ or results in ascending order or ‘desc’ or descending order based on event start_date. Defaults to asc. Optional.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="user_list_tickets">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="user_list_tickets" id="user_list_tickets" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Users</apigee:tag>
+                    <apigee:tag>Attendees</apigee:tag>
+                    <apigee:tag>Tickets</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="user_list_tickets"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_tickets" title="user_list_tickets">
+                    This method lists the tickets purchased by the authenticated user. Each transaction is an order in our system and an order may contain one or more tickets. Tickets to free events are included.
+                </doc>
+            </method>
+        </resource>
+
+        <resource path="user_list_venues">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="user_list_venues" id="user_list_venues" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Users</apigee:tag>
+                    <apigee:tag>Venues</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="user_list_venues"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_venues" title="user_list_venues">
+                    This method lists the venues created by this user. Requires authentication.
+                </doc>
+            </method>
+        </resource>
+
+        <resource path="user_list_organizers">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="user_list_organizers" id="user_list_organizers" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Users</apigee:tag>
+                    <apigee:tag>Organizers</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="user_list_organizers"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/users/user_list_organizers" title="user_list_organizers">
+                    This method lists the organizers created by this user. Requires authentication.
+                </doc>
+            </method>
+        </resource>
+
+        <resource path="user_get">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="user_get" id="user_get" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Users</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="user_get"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/users/user_get" title="user_get">
+                    This method returns the user account identified by the user_id or email request parameters. Visibility is limited to users and sub-users of the given user_key.
+                </doc>
+
+                <request>
+                    <param name="user_id" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_get">
+                            The ID of the subuser account. Optional.
+                        </doc>
+                    </param>
+
+                    <param name="email" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_get">
+                            The email address of the subuser account. Optional.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="user_new">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="user_new" id="user_new" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Users</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="user_new"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/users/user_new" title="user_new">
+                    This method creates a new user, returning the user’s ID in the response.
+                </doc>
+
+                <request>
+                    <param name="email" required="true" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_new">
+                            The user email address.
+                        </doc>
+                    </param>
+
+                    <param name="passwd" required="true" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_new">
+                            The user password. (needs to be at least 4 characters long).
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="user_update">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="user_update" id="user_update" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Users</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="user_update"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/users/user_update" title="user_update">
+                    This method updates an existing user. Only the fields passed as arguments will be modified. It returns the ID of the updated user.
+                </doc>
+
+                <request>
+                    <param name="new_email" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_update">
+                            New user email address.
+                        </doc>
+                    </param>
+
+                    <param name="new_password" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/users/user_update">
+                            New user password. (needs to be at least 4 characters long).
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <!-- Discount -->
+
+        <resource path="event_list_discounts">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="event_list_discounts" id="event_list_discounts" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Discount Codes</apigee:tag>
+                    <apigee:tag>Events</apigee:tag>
+                </apigee:tags>
+
+                <!-- app_key only -->
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="event_list_discounts"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/events/event_list_discounts" title="event_list_discounts">
+                    This method returns a list of discounts for a given event.
+                </doc>
+
+                <request>
+                    <param name="id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/events/event_list_discounts">
+                            The ID of the event.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="discount_new">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                  xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="discount_new" id="discount_new" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Discount Codes</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="discount_new"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_new" title="discount_new">
+                    This method creates a new discount code for a specific event. It returns the ID of the newly created discount code.
+                </doc>
+
+                <request>
+                    <param name="event_id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_new">
+                            The event ID. The event must have been previously created using /event_new.
+                        </doc>
+                    </param>
+
+                    <param name="code" required="true" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_new">
+                            The discount code. Spaces, apostrophes and non-alphanumeric characters are not allowed, except for dashes and underscores. Examples: “earlybirdspecial_08″, “membersonly”, “dc121232″.
+                        </doc>
+                    </param>
+
+                    <param name="amount_off" required="false" style="query" type="xsd:float">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_new">
+                            The fixed amount off the ticket price. Each discount code can have a fixed discount amount or a variable (percentage) discount amount, but not both.
+                        </doc>
+                    </param>
+
+                    <param name="percent_off" required="false" style="query" type="xsd:float">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_new">
+                            The percentage off the ticket price. Each discount code can have a fixed discount amount or a variable (percentage) discount amount, but not both.
+                        </doc>
+                    </param>
+
+                    <param name="tickets" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_new">
+                            Comma-separated list of ticket IDs for which the discount applies. If not provided, the discount will apply to all ticket types.
+                        </doc>
+                    </param>
+
+                    <param name="quantity_available" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_new">
+                            Maximum number of times this discount can be used. If not provided, no maximum is set.
+                        </doc>
+                    </param>
+
+                    <param name="start_date" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_new">
+                            The discount start date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″). 
+                        </doc>
+                    </param>
+
+                    <param name="end_date" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_new">
+                            The discount end date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″). 
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <resource path="discount_update">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="discount_update" id="discount_update" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Discount Codes</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="discount_update"/>
+
+                <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_update" title="discount_update">
+                    This method is used to update an existing discount code. Only the fields passed as arguments will be modified. This method returns the ID of the modified discount code.
+                </doc>
+
+                <request>
+                    <param name="id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_update">
+                            The discount ID to update.
+                        </doc>
+                    </param>
+
+                    <param name="code" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_update">
+                            The discount code. Spaces, apostrophes and non-alphanumeric characters are not allowed, except for dashes and underscores. Examples: “earlybirdspecial_08″, “membersonly”, “dc121232″.
+                        </doc>
+                    </param>
+
+                    <param name="amount_off" required="false" style="query" type="xsd:float">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_update">
+                            The fixed amount off the ticket price. Each discount code can have a fixed discount amount or a variable (percentage) discount amount, but not both.
+                        </doc>
+                    </param>
+
+                    <param name="percent_off" required="false" style="query" type="xsd:float">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_update">
+                            The percentage off the ticket price. Each discount code can have a fixed discount amount or a variable (percentage) discount amount, but not both.
+                        </doc>
+                    </param>
+
+                    <param name="tickets" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_update">
+                            Comma-separated list of ticket IDs for which the discount applies. If not provided, the discount will apply to all ticket types.
+                        </doc>
+                    </param>
+
+                    <param name="quantity_available" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_update">
+                            Maximum number of times this discount can be used. If not provided, no maximum is set.
+                        </doc>
+                    </param>
+
+                    <param name="start_date" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_update">
+                            The discount start date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″). 
+                        </doc>
+                    </param>
+
+                    <param name="end_date" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.eventbrite.com/doc/discount/discount_update">
+                            The discount end date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″). 
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+        <!-- Payment -->
+
+        <resource path="payment_update">
+            <param name="data-type" type="xsd:string" style="template" required="true" default="json">
+                <doc apigee:url="http://developer.eventbrite.com/doc/getting-started/#request_urls" title="response format">
+                    xml or json data-types are supported
+                </doc>
+                <option value="xml" mediaType="application/xml"/>
+                <option value="json" mediaType="application/json"/>
+            </param>
+            <method apigee:displayName="payment_update" id="payment_update" name="GET">
+                <apigee:tags>
+                    <apigee:tag primary="true">Payment</apigee:tag>
+                    <apigee:tag>Events</apigee:tag>
+                </apigee:tags>
+
+                <apigee:authentication required="true"/>
+
+                <apigee:example url="payment_update"/>
+
+                <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update" title="payment_update">
+                    This method creates or updates the payment options for this event. Only the fields passed as arguments will be modified. It returns the list of active methods of payment.
+                </doc>
+
+                <request>
+                    <param name="event_id" required="true" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update">
+                            The event ID.
+                        </doc>
+                    </param>
+
+                    <param name="accept_paypal" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update">
+                            Accept PayPal payments (1 or 0).
+                        </doc>
+                    </param>
+
+                    <param name="paypal_email" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update">
+                            Your PayPal email. Defaults to the user email address if not provided.
+                        </doc>
+                    </param>
+
+                    <param name="accept_google" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update">
+                            Accept Google Checkout payments (1 or 0).
+                        </doc>
+                    </param>
+
+                    <param name="google_merchant_id" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update">
+                            Google Checkout Merchant ID. Required if accept_google is 1.
+                        </doc>
+                    </param>
+
+                    <param name="google_merchant_key" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update">
+                            Google Checkout Merchant Key. Required if accept_google is 1.
+                        </doc>
+                    </param>
+
+                    <param name="accept_check" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update">
+                            Accept “Pay by Check” payments (1 or 0).
+                        </doc>
+                    </param>
+
+                    <param name="instructions_check" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update">
+                            Instructions to attendees who want to pay by check.
+                        </doc>
+                    </param>
+
+                    <param name="accept_cash" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update">
+                            Accept “Pay by Cash” payments (1 or 0).
+                        </doc>
+                    </param>
+
+                    <param name="instructions_cash" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update">
+                            Instructions to attendees who want to pay by cash.
+                        </doc>
+                    </param>
+
+                    <param name="accept_invoice" required="false" style="query" type="xsd:integer">
+                        <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update">
+                            Accept “Send an Invoice” payments (1 or 0).
+                        </doc>
+                    </param>
+
+                    <param name="instructions_invoice" required="false" style="query" type="xsd:string">
+                        <doc apigee:url="http://developer.paymentbrite.com/doc/payment/payment_update">
+                            Instructions to attendees who need to be sent an invoice.
+                        </doc>
+                    </param>
+                </request>
+            </method>
+        </resource>
+
+    </resources>
+</application>
